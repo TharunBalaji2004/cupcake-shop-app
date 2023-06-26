@@ -20,6 +20,9 @@ jobs:
     steps:
       # Checks out our Github repo code
       - uses: actions/checkout@v2
+      
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       # Run a Lint Debug
       - name: Run Lint
