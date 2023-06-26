@@ -1,0 +1,33 @@
+name: CI
+
+# Controls when the action will run 
+on:
+  # Triggers the workflow when push occurs in master branch (or) pull request in master branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  
+  # Allows to run this workflow manually from the Actions Tab
+  workflow_dispatch:
+  
+jobs:
+# This workflow contains a single job called "lint"
+  lint:
+    # The type of runner that our job would run
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checks out our Github repo code
+      - uses: actions/checkout@v2
+
+      # Run a Lint Debug
+      - name: Run Lint
+        run: ./gradlew lintDebug
+        
+      - name: Upload HTML Test Report
+        uses: actions/upload-artifact@v2
+        with: 
+          name: index.html
+          path: app/build/reports/lint-results-debug.html
+  
